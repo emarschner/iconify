@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <style type="text/css">
+      body {
+        font-family: sans-serif;
+        text-align: center;
+      }
+      .icon, .sprite-icon {
+        background-color: black;
+        width: 1em;
+        height: 1em;
+        margin: .5em;
+      }
+    </style>
+    <script type="text/javascript" src="../../node_modules/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="../../dist/iconify.js"></script>
+    <script type="text/javascript">
+      iconify.load('../assets/open-iconic/sprite.svg', { family: 'sprite-icon' }).then(function() {
+        var sheet = $('style.sprite-icon')[0].sheet,
+            rules = sheet.cssRules;
+
+        Object.keys(iconify.__families__['sprite-icon'].__icons__).forEach(function(name) {
+          sheet.insertRule('.' + name + '{background-color:rgb(' +
+              ~~(Math.random() * 256) + ',' +
+              ~~(Math.random() * 256) + ',' +
+              ~~(Math.random() * 256) + ');}', rules.length);
+
+          $('<span>').attr({
+            class: 'sprite-icon ' + name,
+            title: name
+          }).appendTo('#sprite-icons');
+
+          iconify.load('../assets/open-iconic/svg/' + name + '.svg', { name: name }).then(function() {
+            $('<span>').attr({
+              class: 'icon ' + name,
+              title: name
+            }).appendTo('#individual-icons');
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>From sprite:</h1><div id="sprite-icons"></div>
+    <h1>From individual files:</h1><div id="individual-icons"></div>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="icons.css" class="icons" />
+    <style type="text/css">
+      body {
+        text-align: center;
+      }
+      .icon {
+        background-color: black;
+        width: 1em;
+        height: 1em;
+        margin: .5em;
+      }
+      .thumb-down.icon {
+        background-color: red;
+      }
+      .thumb-up.icon {
+        background-color: green;
+      }
+    </style>
+    <script type="text/javascript" src="../../node_modules/jquery/dist/jquery.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var rules = $('link.icons')[0].sheet.rules;
+
+      for (var i = 3; i < rules.length; i++) {
+        var selector = rules[i].selectorText;
+
+        $('<div>').attr({
+          title: selector.replace(/\.icon\./, ''),
+          class: selector.replace(/\./g, ' ')
+        }).appendTo('body');
+      }
+    </script>
+  </body>
+</html>

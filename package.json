@@ -1,0 +1,48 @@
+{
+  "name": "iconify",
+  "version": "0.0.1",
+  "description": "Utility for using SVG images as icons on the web with pure CSS and/or DOM injection",
+  "main": "src/node/index.js",
+  "browser": "src/browser/index.js",
+  "browserify-shim": {
+    "jquery": "global:$"
+  },
+  "bin": "bin/cli",
+  "scripts": {
+    "start": "make examples",
+    "test": "make test",
+    "coverage": "make coverage",
+    "build": "make dist"
+  },
+  "author": "emarschner@gmail.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/emarschner/iconify"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "btoa": "^1.1.2",
+    "jquery": "^2.1.1",
+    "jsdom": "^0.11.1",
+    "optimist": "^0.6.1",
+    "xmldom": "^0.1.19"
+  },
+  "devDependencies": {
+    "browserify": "^4.2.3",
+    "browserify-istanbul": "^0.1.1",
+    "browserify-shim": "^3.6.0",
+    "chai": "^1.9.1",
+    "istanbul": "^0.3.0",
+    "karma": "^0.12.19",
+    "karma-browserify": "^0.2.1",
+    "karma-chrome-launcher": "^0.1.4",
+    "karma-coverage": "^0.2.5",
+    "karma-mocha": "^0.1.6",
+    "karma-node2umd": "^1.0.0",
+    "karma-requirejs": "^0.2.2",
+    "mocha": "^1.21.3",
+    "node2umd": "^1.0.1",
+    "requirejs": "^2.1.14",
+    "serve": "^1.4.0"
+  }
+}
