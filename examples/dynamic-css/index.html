@@ -9,11 +9,11 @@
         background-color: black;
         width: 1em;
         height: 1em;
-        margin: .5em;
+        margin: 1em;
       }
     </style>
-    <script type="text/javascript" src="../../node_modules/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="../../dist/iconify.js"></script>
+    <script type="text/javascript" src="../assets/jquery.js"></script>
+    <script type="text/javascript" src="../assets/iconify.js"></script>
     <script type="text/javascript">
       iconify.load('../assets/open-iconic/sprite.svg', { family: 'sprite-icon' }).then(function() {
         var sheet = $('style.sprite-icon')[0].sheet,
@@ -41,7 +41,7 @@
     </script>
   </head>
   <body>
-    <h1>From sprite:</h1><div id="sprite-icons"></div>
-    <h1>From individual files:</h1><div id="individual-icons"></div>
+    <h1>From sprite</h1><div id="sprite-icons"></div>
+    <h1>From individual files</h1><div id="individual-icons"></div>
   </body>
 </html>
