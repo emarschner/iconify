@@ -14,7 +14,7 @@ It runs on both the server/command-line and in the browser. On the server it hel
 
 which looks like:
 
-<div style="background-color:black;width:5em;height:5em;-webkit-mask-box-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHZpZXdib3g9IjAgMCA4IDgiPjxwYXRoIGQ9Im00LjQ3IDBjLS4xOS4wMi0uMzcuMTUtLjQ3LjM0LS4xMy4yNi0xLjA5IDIuMTktMS4yOCAyLjM4LS4xOS4xOS0uNDQuMjgtLjcyLjI4djRoMy41Yy4yMSAwIC4zOS0uMTMuNDctLjMxIDAgMCAxLjAzLTIuOTEgMS4wMy0zLjE5IDAtLjI4LS4yMi0uNS0uNS0uNWgtMS41Yy0uMjggMC0uNS0uMjUtLjUtLjVzLjM5LTEuNTguNDctMS44NGMuMDgtLjI2LS4wNS0uNTQtLjMxLS42My0uMDctLjAyLS4xMi0uMDQtLjE5LS4wM3ptLTQuNDcgM3Y0aDF2LTRoLTF6Ii8+PC9zdmc+);"></div>
+<img src="http://emarschner.github.io/iconify/img/thumb-up-black.png" />
 
 and create CSS rules like these:
 
@@ -56,7 +56,7 @@ and you add this to your page's CSS:
 
 then you will get this:
 
-<div style="background-color:hotpink;width:5em;height:5em;-webkit-mask-box-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHZpZXdib3g9IjAgMCA4IDgiPjxwYXRoIGQ9Im00LjQ3IDBjLS4xOS4wMi0uMzcuMTUtLjQ3LjM0LS4xMy4yNi0xLjA5IDIuMTktMS4yOCAyLjM4LS4xOS4xOS0uNDQuMjgtLjcyLjI4djRoMy41Yy4yMSAwIC4zOS0uMTMuNDctLjMxIDAgMCAxLjAzLTIuOTEgMS4wMy0zLjE5IDAtLjI4LS4yMi0uNS0uNS0uNWgtMS41Yy0uMjggMC0uNS0uMjUtLjUtLjVzLjM5LTEuNTguNDctMS44NGMuMDgtLjI2LS4wNS0uNTQtLjMxLS42My0uMDctLjAyLS4xMi0uMDQtLjE5LS4wM3ptLTQuNDcgM3Y0aDF2LTRoLTF6Ii8+PC9zdmc+);"></div>
+<img src="http://emarschner.github.io/iconify/img/thumb-up-hotpink.png" />
 
 ## Fancier icons via inline SVG injection
 
@@ -97,11 +97,7 @@ You can then manipulate the inlined SVG content as you wish. For example, change
 }
 ```
 
-<div style="width:5em;height:5em;fill:none;stroke:black;stroke-width:.1;">
-  <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 8 8">
-    <path d="M4.47 0c-.19.02-.37.15-.47.34-.13.26-1.09 2.19-1.28 2.38-.19.19-.44.28-.72.28v4h3.5c.21 0 .39-.13.47-.31 0 0 1.03-2.91 1.03-3.19 0-.28-.22-.5-.5-.5h-1.5c-.28 0-.5-.25-.5-.5s.39-1.58.47-1.84c.08-.26-.05-.54-.31-.63-.07-.02-.12-.04-.19-.03zm-4.47 3v4h1v-4h-1z" transform="translate(.05 .05)" />
-  </svg>
-</div>
+<img src="http://emarschner.github.io/iconify/img/thumb-up-outline.png" />
 
 # Installation
 
