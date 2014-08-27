@@ -14,5 +14,5 @@ module.exports = {
     'tests/browser/*-test.js': 'browserify',
   },
   reporters: ['progress'],
-  browsers: ['Chrome']
+  browsers: ['PhantomJS']
 };

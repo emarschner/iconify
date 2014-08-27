@@ -18,6 +18,6 @@ module.exports = function(config) {
       'tests/**/fixtures/**/*.js': 'node2umd'
     },
     reporters: ['progress'],
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
   });
 };

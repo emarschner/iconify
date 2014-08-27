@@ -21,7 +21,7 @@ function Main(el) {
     if (classList.some(function(className) {
       return familyIcons[className];
     })) {
-      var iconData = $el.css('-webkit-mask-box-image-source'),
+      var iconData = $el.css('-webkit-mask-box-image'),
           decode = iconData.match(/;(.*),/)[1] === 'base64' ? atob : decodeURI,
           encodedSvg = iconData.match(/;.*,(.*)\)/)[1],
           $svg = $(decode(encodedSvg)).attr({ width: '100%', height: '100%' });
@@ -63,7 +63,7 @@ Main.load = function(svg, options) {
     }
 
     return ruleSelectorPrefix + '.' + $(el).attr('id') +
-        '{-webkit-mask-box-image-source:url(data:image/svg+xml;' + dataUriFormat + ',' +
+        '{-webkit-mask-box-image:url(data:image/svg+xml;' + dataUriFormat + ',' +
         encodeUriData(xmlToString($('<svg>').attr({
           xmlns: 'http://www.w3.org/2000/svg',
           width: viewBox.width,
@@ -132,7 +132,7 @@ Main.load = function(svg, options) {
         // Rule for inlined icons from family
         ruleFromObject('.inline' + ruleSelectorPrefix, {
           'background-color': 'transparent',
-          '-webkit-mask-box-image-source': 'none'
+          '-webkit-mask-box-image': 'none'
         }),
 
         // Rule for inlined SVG element from family
