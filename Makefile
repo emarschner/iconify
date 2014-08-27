@@ -53,4 +53,3 @@ clean: clean-coverage clean-dist clean-examples clean-package
 
 examples: dist
 	cd examples/; make
-	@serve &> /dev/null & export PID=$$! && echo Examples URL: http://localhost:3000/examples/ && cat && kill $$PID

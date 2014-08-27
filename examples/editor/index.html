@@ -1,0 +1,148 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="icons.css" class="icons" />
+    <style type="text/css">
+      body {
+        text-align: center;
+      }
+      .icon {
+        background-color: black;
+        width: 1em;
+        height: 1em;
+        margin: 1em;
+      }
+      .selections .icon-wrapper {
+        cursor: pointer;
+        display: inline-block;
+      }
+      .selections .icon-wrapper:hover {
+        background-color: black;
+      }
+      .selections .icon-wrapper:hover .icon {
+        background-color: white;
+      }
+      .editor {
+        display: none;
+        position: fixed;
+        top: 25%;
+        left: 25%;
+        width: 50%;
+        height: 50%;
+        background: white;
+        box-shadow: 0 0 30px -10px black;
+        border: 1px solid lightgray;
+        border-radius: 10px;
+      }
+      .editor .content {
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        padding-bottom: 3em;
+      }
+      .editor .content .icon {
+        cursor: default;
+      }
+      .editor .controls {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3em;
+        background: #eee;
+        border-top: 1px solid lightgray;
+      }
+      .editor .controls > * {
+        display: inline-block;
+        margin: .75em;
+      }
+      .editor .controls .close {
+        cursor: pointer;
+        position: absolute;
+        right: 0;
+        margin: 0;
+      }
+      .editor .controls .close:hover {
+        background-color: black;
+      }
+      .editor .controls .close:hover .icon {
+        background-color: white;
+      }
+    </style>
+    <script type="text/javascript" src="../assets/jquery.js"></script>
+  </head>
+  <body>
+    <div class="selections">
+    </div>
+    <div class="editor">
+      <div class="controls">
+        <div class="size">
+          <input type="range" min="5" max="85" value="45"/>
+        </div>
+        <div class="color">
+          <input type="color" value="#000000" />
+        </div>
+        <div class="close">
+          <div class="x icon"></div>
+        </div>
+      </div>
+      <div class="content">
+      </div>
+    </div>
+    <script type="text/javascript">
+      var rules = $('link.icons')[0].sheet.rules;
+
+      for (var i = 0; i < rules.length - 3; i++) {
+        var selections = rules[i].selectorText;
+
+        $('<div>').attr('class', 'icon-wrapper').append($('<div>').attr({
+          title: selections.replace(/\.icon\./, ''),
+          class: selections.replace(/\./g, ' ')
+        })).appendTo('.selections');
+      }
+
+      var $editor = $('.editor'),
+          $editorContent = $editor.find('.content'),
+          $sizeInput = $editor.find('.size input'),
+          $colorInput = $editor.find('.color input');
+
+      function updateIconSize() {
+        var contentHeight = $editorContent.height(),
+            size = Math.min($editorContent.width(), contentHeight) * $sizeInput.val() / 100;
+
+        $editorContent.find('.icon').css({
+          width: size,
+          height: size,
+          marginTop: (contentHeight - size) / 2
+        });
+      }
+
+      function updateIconColor() {
+        $editorContent.find('.icon').css('background-color', $colorInput.val());
+      }
+
+      $sizeInput.on('input change', updateIconSize);
+      $colorInput.on('input change', updateIconColor);
+
+      $editor.find('.close').on('click', function() {
+        $editor.hide();
+      });
+
+      $(document).on('keyup', function(e) {
+        if (e.keyCode === 27) {
+          $editor.hide();
+        }
+      });
+
+      $('.selections').on('click', function(e) {
+        var $target = $(e.target);
+
+        if ($target.hasClass('icon-wrapper') || $target.parents('.icon-wrapper').length !== 0) {
+          $editor.show();
+          $editorContent.empty().append($target.clone());
+          updateIconSize();
+          updateIconColor();
+        }
+      });
+    </script>
+  </body>
+</html>

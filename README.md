@@ -152,7 +152,7 @@ require('iconify').load('icons.svg', {
 </html>
 ```
 
-See `examples/` for more...examples.
+See [`examples/`](http://emarschner.github.io/iconify/examples/) for more...examples.
 
 ## API
 
@@ -168,7 +168,7 @@ Returns jQuery-wrapped `icon_element` for chaining.
 
 Generates CSS rules for icons from `source_image`.
 
-Returns a `jQuery.Deferred` "promise" that resolves when CSS rules are successfully generated, or is rejected if there's a problem.
+Returns a [`jQuery.Deferred`](http://api.jquery.com/category/deferred-object/) "promise" that resolves when CSS rules are successfully generated, or is rejected if there's a problem.
 
 *  **_source_image_** can be either the path/URL (server-/client-side, respectively) to an SVG file, or a string containing the SVG content itself
 *  **_options_** (optional) used to customize the resulting CSS; defaults:
