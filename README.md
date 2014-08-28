@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/emarschner/iconify.svg?branch=master)](https://travis-ci.org/emarschner/iconify)
+[![Dependency Status](https://david-dm.org/emarschner/iconify.svg)](https://david-dm.org/emarschner/iconify)
+[![devDependency Status](https://david-dm.org/emarschner/iconify/dev-status.svg)](https://david-dm.org/emarschner/iconify#info=devDependencies)
+
 `iconify` lets you use SVG images as icons on the web with pure CSS and/or DOM injection.
 
 It runs on both the server/command-line and in the browser. On the server it helps you generate static CSS files. In the browser it helps you dynamically generate CSS rules from SVG images for monochromatic icons, as well as inject SVG content into the DOM for richer customization (multiple colors, animations, etc.).
