@@ -18,7 +18,7 @@ It runs on both the server/command-line and in the browser. On the server it hel
 
 which looks like:
 
-<img src="http://emarschner.github.io/iconify/img/thumb-up-black.png" />
+![black thumb-up icon](http://emarschner.github.io/iconify/img/thumb-up-black.png)
 
 and create CSS rules like these:
 
@@ -60,7 +60,7 @@ and you add this to your page's CSS:
 
 then you will get this:
 
-<img src="http://emarschner.github.io/iconify/img/thumb-up-hotpink.png" />
+![hotpink thumb-up icon](http://emarschner.github.io/iconify/img/thumb-up-hotpink.png)
 
 ## Fancier icons via inline SVG injection
 
@@ -101,7 +101,7 @@ You can then manipulate the inlined SVG content as you wish. For example, change
 }
 ```
 
-<img src="http://emarschner.github.io/iconify/img/thumb-up-outline.png" />
+![outline thumb-up icon](http://emarschner.github.io/iconify/img/thumb-up-outline.png)
 
 # Installation
 
