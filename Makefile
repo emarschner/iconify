@@ -35,19 +35,19 @@ coverage: browser-coverage node-coverage
 .PHONY: clean-coverage clean-dist clean-examples clean-package clean
 
 clean-coverage:
-	rm -rf coverage/
+	-rm -rf coverage/
 
 clean-dist:
-	rm -rf dist/
+	-rm -rf dist/
 
 clean-examples:
-	cd examples/; make clean
+	-cd examples/; make clean
 
 clean-package:
-	rm -rf package/ *.tgz
+	-rm -rf package/ *.tgz
 
 clean: clean-coverage clean-dist clean-examples clean-package
-	rm -rf node_modules/
+	-rm -rf node_modules/
 
 .PHONY: examples
 

@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="icons.css" class="icons" />
+    <style type="text/css">
+      [class*="-icon"] {
+        background-color: black;
+        width: 1.5em;
+        height: 1.5em;
+        margin: 1.5em;
+      }
+    </style>
+    <script type="text/javascript" src="../assets/jquery.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var rules = Array.prototype.slice.call($('link.icons')[0].sheet.rules, 0);
+
+      var families = rules.filter(function(rule) {
+        return [/-icon$/, /^\.inline/].every(function(pattern) {
+          return !pattern.test(rule.selectorText);
+        });
+      }).reduce(function(families, rule) {
+        var selector = rule.selectorText,
+            family = selector.replace(/^.*\.(.*-icon).*$/, '$1'),
+            name = selector.replace(/\..*-icon.?/, '').replace(/\./g, '');
+
+        (families[family] || (families[family] = [])).push(name);
+
+        return families;
+      }, {});
+
+      Object.keys(families).sort().forEach(function(family) {
+        $('<h1>').text(family.replace('-icon', '').replace(/^./, function(match) {
+          return match.toUpperCase();
+        })).appendTo('body');
+
+        families[family].sort().forEach(function(name) {
+          var className = [name, family].join(' ');
+
+          $('<div>').attr({ title: className, class: className }).appendTo('body');
+        });
+      });
+    </script>
+  </body>
+</html>
