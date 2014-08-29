@@ -33,7 +33,7 @@
     "browserify-shim": "^3.7.0",
     "chai": "^1.9.1",
     "istanbul": "^0.3.0",
-    "karma": "^0.12.22",
+    "karma": "^0.12.23",
     "karma-browserify": "^0.2.1",
     "karma-coverage": "^0.2.6",
     "karma-mocha": "^0.1.9",
