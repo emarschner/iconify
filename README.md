@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/emarschner/iconify.svg?branch=master)](https://travis-ci.org/emarschner/iconify)
 [![Dependency Status](https://david-dm.org/emarschner/iconify.svg)](https://david-dm.org/emarschner/iconify)
 [![devDependency Status](https://david-dm.org/emarschner/iconify/dev-status.svg)](https://david-dm.org/emarschner/iconify#info=devDependencies)
+[![NPM version](https://badge.fury.io/js/iconify.svg)](http://badge.fury.io/js/iconify)
 
 `iconify` lets you use SVG images as icons on the web with pure CSS and/or DOM injection.
 
