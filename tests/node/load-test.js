@@ -38,6 +38,10 @@ describe('loading icons', function() {
           });
         });
 
+        afterEach(function() {
+          index.__families__.icon = undefined;
+        });
+
         describe('from an svg string', function() {
           beforeEach(function(done) {
             waitForOutputToFinish(done);

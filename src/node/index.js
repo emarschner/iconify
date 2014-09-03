@@ -12,8 +12,8 @@ module.exports = require('../core')({
 
           // Hack to work around xmldom.XMLSerializer's use of node.tagName, which is always upper-
           // cased, which browsers don't seem to like when embedding SVGs as data URIs in CSS
-          .replace(/<([^>]*)>/g, function(name) {
-            return name.toLowerCase();
+          .replace(/<([^\/\s]+|\/[^>]+)/g, function(xml, tagName) {
+            return '<' + tagName.toLowerCase();
           });
     };
   },
@@ -34,11 +34,7 @@ module.exports = require('../core')({
   writeRules: function(rules, options) {
     var output = options.output;
 
-    for (var iconName in rules.icons) {
-      output.write(rules.icons[iconName] + '\n');
-    }
-
-    rules.family.forEach(function(rule) {
+    rules.forEach(function(rule) {
       output.write(rule + '\n');
     });
 

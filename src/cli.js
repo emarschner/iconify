@@ -1,5 +1,6 @@
-var path = require('path'),
-    optimist = require('optimist');
+var optimist = require('optimist'),
+    path = require('path')
+    stream = require('stream');
 
 var iconify = require('./node/index');
 
@@ -14,13 +15,17 @@ function dashedToCamel(dashed) {
 module.exports = function(argv) {
   var args = require('optimist').parse(argv.slice(2)),
       sources = args._.slice(0),
-      options = { output: process.stdout };
+      options = {
+        output: process.stdout,
+        transform: null
+      },
+      defaultOptions = iconify.load.defaultOptions;
 
   Object.getOwnPropertyNames(args).forEach(function(name) {
     if (name !== '_' && name !== '$0') {
       var camelName = dashedToCamel(name);
 
-      if (iconify.load.defaultOptions[camelName] !== undefined) {
+      if (defaultOptions[camelName] !== undefined || options[camelName] !== undefined) {
         options[camelName] = args[name];
       } else {
         throw new Error('Unknown argument: ' + name + ' = ' + args[name]);
@@ -28,23 +33,47 @@ module.exports = function(argv) {
     }
   });
 
-  function loadNextSource() {
-    if (sources.length === 0) {
-      return;
-    } else {
-      var source = sources.shift();
+  var initialInput = new stream.PassThrough({ objectMode: true }),
+      transform = options.transform;
 
-      if (options.name == null) {
-        options.name = path.basename(source).replace(new RegExp(path.extname(source) + '$'), '');
+  [function(input) { // for now this default transform is always first
+    var output = new stream.PassThrough({ objectMode: true });
+
+    input.on('data', function(item) {
+      if (item.options.name == null) {
+        item.options.name = path.basename(item.source)
+            .replace(new RegExp(path.extname(item.source) + '$'), '');
       }
 
-      iconify.load(source, options).then(function() {
-        loadNextSource();
-      }).fail(function(e) {
-        console.error(e.message);
-      });
-    }
-  }
+      output.write(item);
+    });
 
-  loadNextSource();
+    return output;
+  }].concat(typeof transform === 'string' ? transform.split(',') : transform || [])
+      .map(function(transformer) {
+        switch (typeof transformer) {
+          case 'function':
+            return transformer;
+          case 'string':
+            return require(transformer.indexOf('/') >= 0 ? path.resolve(transformer) : transformer);
+        }
+      })
+      .reduce(function(input, transformer) {
+        var output = transformer(input);
+
+        input.on('end', function() {
+          output.end();
+        });
+
+        return output;
+      }, initialInput)
+      .on('data', function(item) {
+        iconify.load(item.source, item.options).fail(function(e) {
+          console.error(e.message);
+        });
+      });
+
+  sources.forEach(function(source) {
+    initialInput.write({ source: source, options: iconify.$.extend(true, {}, options) });
+  });
 };

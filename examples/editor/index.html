@@ -91,7 +91,7 @@
     <script type="text/javascript">
       var rules = $('link.icons')[0].sheet.rules;
 
-      for (var i = 0; i < rules.length - 3; i++) {
+      for (var i = 3; i < rules.length; i++) {
         var selections = rules[i].selectorText;
 
         $('<div>').attr('class', 'icon-wrapper').append($('<div>').attr({

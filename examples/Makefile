@@ -28,4 +28,4 @@ clean-editor:
 clean-static-css:
 	cd static-css; make clean
 
-clean: clean-editor clean-static-css
+clean: clean-assets clean-editor clean-static-css

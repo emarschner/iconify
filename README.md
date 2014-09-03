@@ -24,22 +24,22 @@ which looks like:
 and create CSS rules like these:
 
 ```css
-.icon.thumb-up {
-  -webkit-mask-box-image-source: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHZpZXdib3g9IjAgMCA4IDgiPjxwYXRoIGQ9Im00LjQ3IDBjLS4xOS4wMi0uMzcuMTUtLjQ3LjM0LS4xMy4yNi0xLjA5IDIuMTktMS4yOCAyLjM4LS4xOS4xOS0uNDQuMjgtLjcyLjI4djRoMy41Yy4yMSAwIC4zOS0uMTMuNDctLjMxIDAgMCAxLjAzLTIuOTEgMS4wMy0zLjE5IDAtLjI4LS4yMi0uNS0uNS0uNWgtMS41Yy0uMjggMC0uNS0uMjUtLjUtLjVzLjM5LTEuNTguNDctMS44NGMuMDgtLjI2LS4wNS0uNTQtLjMxLS42My0uMDctLjAyLS4xMi0uMDQtLjE5LS4wM3ptLTQuNDcgM3Y0aDF2LTRoLTF6Ii8+PC9zdmc+);
-}
 .icon {
   display: inline-block;
 }
 .inline.icon {
   background-color: transparent;
-  -webkit-mask-box-image-source: none;
+  -webkit-mask-box-image: none !important;
 }
 .inline.icon svg {
   display: block;
 }
+.icon.thumb-up {
+  -webkit-mask-box-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHZpZXdib3g9IjAgMCA4IDgiPjxwYXRoIGQ9Im00LjQ3IDBjLS4xOS4wMi0uMzcuMTUtLjQ3LjM0LS4xMy4yNi0xLjA5IDIuMTktMS4yOCAyLjM4LS4xOS4xOS0uNDQuMjgtLjcyLjI4djRoMy41Yy4yMSAwIC4zOS0uMTMuNDctLjMxIDAgMCAxLjAzLTIuOTEgMS4wMy0zLjE5IDAtLjI4LS4yMi0uNS0uNS0uNWgtMS41Yy0uMjggMC0uNS0uMjUtLjUtLjVzLjM5LTEuNTguNDctMS44NGMuMDgtLjI2LS4wNS0uNTQtLjMxLS42My0uMDctLjAyLS4xMi0uMDQtLjE5LS4wM3ptLTQuNDcgM3Y0aDF2LTRoLTF6Ii8+PC9zdmc+);
+}
 ```
 
-The first rule there for `.icon.thumb-up` is the really important one. Its `-webkit-mask-box-image-source` property value is a base64-encoded data URI that represents the contents of the original SVG image.
+The last rule there for `.icon.thumb-up` is the really important one. Its `-webkit-mask-box-image` property value is a base64-encoded data URI that represents the contents of the original SVG image.
 
 ## Monochromatic icons
 
