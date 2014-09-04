@@ -36,9 +36,7 @@ module.exports = function(argv) {
   var initialInput = new stream.PassThrough({ objectMode: true }),
       transform = options.transform;
 
-  [function(input) { // for now this default transform is always first
-    var output = new stream.PassThrough({ objectMode: true });
-
+  [function(input, output) { // for now this default transform is always first
     input.on('data', function(item) {
       if (item.options.name == null) {
         item.options.name = path.basename(item.source)
@@ -47,8 +45,6 @@ module.exports = function(argv) {
 
       output.write(item);
     });
-
-    return output;
   }].concat(typeof transform === 'string' ? transform.split(',') : transform || [])
       .map(function(transformer) {
         switch (typeof transformer) {
@@ -59,11 +55,12 @@ module.exports = function(argv) {
         }
       })
       .reduce(function(input, transformer) {
-        var output = transformer(input);
+        var output = new stream.PassThrough({ objectMode: true });
 
         input.on('end', function() {
           output.end();
         });
+        transformer(input, output);
 
         return output;
       }, initialInput)
