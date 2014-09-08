@@ -20,7 +20,7 @@ static-css:
 .PHONY: clean-assets clean-editor clean-static-css clean
 
 clean-assets:
-	rm assets/jquery.js assets/iconify.js
+	-rm assets/jquery.js assets/iconify.js
 
 clean-editor:
 	cd editor; make clean

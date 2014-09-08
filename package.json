@@ -1,6 +1,6 @@
 {
   "name": "iconify",
-  "version": "0.0.2-rc2",
+  "version": "0.0.2-rc3",
   "description": "Utility for using SVG images as icons on the web with pure CSS and/or DOM injection",
   "main": "src/node/index.js",
   "browser": "src/browser/index.js",
@@ -42,7 +42,7 @@
     "karma-requirejs": "^0.2.2",
     "mocha": "^1.21.4",
     "node2umd": "^1.0.2",
-    "requirejs": "^2.1.14",
+    "requirejs": "^2.1.15",
     "serve": "^1.4.0"
   }
 }
