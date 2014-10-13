@@ -23,7 +23,7 @@
   "dependencies": {
     "btoa": "^1.1.2",
     "jquery": "^2.1.1",
-    "jsdom": "^0.11.1",
+    "jsdom": "^1.0.1",
     "optimist": "^0.6.1",
     "xmldom": "^0.1.19"
   },
