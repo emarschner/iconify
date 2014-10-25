@@ -187,6 +187,43 @@ Returns a [`jQuery.Deferred`](http://api.jquery.com/category/deferred-object/) "
 
 See source for more details...
 
+## CLI
+
+### `iconify [--options] <file> [<file 2> ... <file N>]`
+
+Outputs CSS rules to stdout for icons from `<file> [<file 2> ... <file N>]` as if those files were given to `iconify.load()`.
+
+* **_[--options]_** can be specified to customize a particular command's behavior. All of the `options` that can be provided to `iconify.load()` can be specified this way, with their names dash-ed rather than camelCased  -- e.g. `--data-uri-format base64` would be equivalent to `{ dataUriFormat: 'base64' }`
+* **_`<file> [<file 2> ... <file N>]`_**: at least one path to an input file (`<file>`) is required, which will be converted into CSS rules for the icon(s) defined therein. If a file contains a single icon then the file's name, minus the extension, will be the default name for that icon, unless one is already given via the `--name` option.
+
+### Transforms
+
+An additional `--transform <transformer>[,<transformer 2>,...,<transformer N>]` option is available to allow arbitrary customization of how file contents are processed, and with which options. The `<transformer>`s given will be resolved and loaded as NodeJS modules defining appropriate transformer functions.
+
+A transformer function is any function accepting two arguments, i.e. `function(input, output) { ... }`, where `input` is a [readable stream](http://nodejs.org/api/stream.html#stream_class_stream_readable) and `output` is a [writable stream](http://nodejs.org/api/stream.html#stream_class_stream_writable), both in [object mode](http://nodejs.org/api/stream.html#stream_object_mode). Objects read from or written to these streams should contain `source` and `options` properties, which will ultimately be used as the first and second arguments to `iconify.load()`, respectively.
+
+For example, here's a contrived transformer function that will set the icon family to `magicon`:
+
+```javascript
+// set-family.js
+module.exports = function(input, output) {
+  input.on('data', function(item) {
+    item.options.family = 'magicon';
+    output.write(item);
+  });
+};
+```
+
+which could be used like so:
+
+```
+iconify --transform ./set-family my-icons.svg
+```
+
+(Of course in this case you could also just use the global `--family` option: `iconify --family magicon my-icons.svg`.)
+
+When multiple comma-separated paths are given to the `--transform` option then the corresponding transformer functions are chained together, with the `input` of one being the `output` from the one before it.
+
 # Credits
 
 Much inspiration taken from [Iconic](https://useiconic.com/).
