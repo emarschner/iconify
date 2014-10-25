@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('../src/cli')(process.argv);
+require('../src/node/cli')(process.argv, { output: process.stdout });

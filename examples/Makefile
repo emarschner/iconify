@@ -1,7 +1,7 @@
-.PHONY: all assets editor static-css
+.PHONY: all assets editor static-css transforms
 
 all: assets editor static-css transforms
-	@serve &> /dev/null & export PID=$$! && echo Examples URL: http://localhost:3000/ && cat && kill $$PID
+	@serve &> /dev/null & export PID=$$! && echo Examples ready at: http://localhost:3000/ && cat && kill $$PID
 
 assets/jquery.js:
 	cp ../node_modules/jquery/dist/jquery.js $@
@@ -34,4 +34,4 @@ clean-static-css:
 clean-transforms:
 	cd transforms; make clean
 
-clean: clean-assets clean-editor clean-static-css
+clean: clean-assets clean-editor clean-static-css clean-transforms

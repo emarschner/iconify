@@ -2,7 +2,7 @@ var optimist = require('optimist'),
     path = require('path')
     stream = require('stream');
 
-var iconify = require('./node/index');
+var iconify = require('./index');
 
 function dashedToCamel(dashed) {
   var words = dashed.split('-');
@@ -12,13 +12,10 @@ function dashedToCamel(dashed) {
   }).join('');
 }
 
-module.exports = function(argv) {
+module.exports = function(argv, options) {
   var args = require('optimist').parse(argv.slice(2)),
       sources = args._.slice(0),
-      options = {
-        output: process.stdout,
-        transform: null
-      },
+      options = iconify.$.extend(true, { transform: null }, options),
       defaultOptions = iconify.load.defaultOptions;
 
   Object.getOwnPropertyNames(args).forEach(function(name) {
@@ -28,7 +25,7 @@ module.exports = function(argv) {
       if (defaultOptions[camelName] !== undefined || options[camelName] !== undefined) {
         options[camelName] = args[name];
       } else {
-        throw new Error('Unknown argument: ' + name + ' = ' + args[name]);
+        throw new Error('Unknown option: ' + name + ' = ' + args[name]);
       }
     }
   });
@@ -73,4 +70,6 @@ module.exports = function(argv) {
   sources.forEach(function(source) {
     initialInput.write({ source: source, options: iconify.$.extend(true, {}, options) });
   });
+
+  initialInput.end();
 };
