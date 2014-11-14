@@ -9,7 +9,7 @@ It runs on both the server/command-line and in the browser. On the server it hel
 
 # How it works
 
-`iconify` will take an SVG file like this one (for the "thumb-up" icon from [open-iconic](https://useiconic.com/open/)):
+`iconify` takes an SVG file like this one (for the "thumb-up" icon from [open-iconic](https://useiconic.com/open/)):
 
 ```xml
 <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8">
@@ -21,7 +21,7 @@ which looks like:
 
 ![black thumb-up icon](http://emarschner.github.io/iconify/img/thumb-up-black.png)
 
-and create CSS rules like these:
+and creates CSS rules like these:
 
 ```css
 .icon {

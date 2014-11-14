@@ -23,18 +23,18 @@
   "dependencies": {
     "btoa": "^1.1.2",
     "jquery": "^2.1.1",
-    "jsdom": "^1.0.3",
+    "jsdom": "^1.2.1",
     "optimist": "^0.6.1",
     "xmldom": "^0.1.19"
   },
   "devDependencies": {
-    "browserify": "^4.2.3",
+    "browserify": "^6.3.2",
     "browserify-istanbul": "^0.1.2",
     "browserify-shim": "^3.8.0",
-    "chai": "^1.9.2",
+    "chai": "^1.10.0",
     "istanbul": "^0.3.2",
-    "karma": "^0.12.24",
-    "karma-browserify": "^0.2.1",
+    "karma": "^0.12.25",
+    "karma-browserify": "^1.0.0",
     "karma-coverage": "^0.2.6",
     "karma-mocha": "^0.1.9",
     "karma-node2umd": "^1.0.0",
