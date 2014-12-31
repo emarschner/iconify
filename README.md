@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/emarschner/iconify.svg?branch=master)](https://travis-ci.org/emarschner/iconify)
+[![Coverage Status](https://img.shields.io/coveralls/emarschner/iconify.svg)](https://coveralls.io/r/emarschner/iconify)
+[![Code Climate](https://codeclimate.com/github/emarschner/iconify/badges/gpa.svg)](https://codeclimate.com/github/emarschner/iconify)
 [![Dependency Status](https://david-dm.org/emarschner/iconify.svg)](https://david-dm.org/emarschner/iconify)
 [![devDependency Status](https://david-dm.org/emarschner/iconify/dev-status.svg)](https://david-dm.org/emarschner/iconify#info=devDependencies)
 [![NPM version](https://badge.fury.io/js/iconify.svg)](http://badge.fury.io/js/iconify)
