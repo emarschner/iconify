@@ -10,7 +10,7 @@
   "bin": "bin/cli",
   "scripts": {
     "start": "make examples",
-    "test": "make test",
+    "test": "make test && make coverage",
     "coverage": "make coverage",
     "build": "make dist"
   },
