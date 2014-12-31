@@ -10,7 +10,7 @@
   "bin": "bin/cli",
   "scripts": {
     "start": "make examples",
-    "test": "make test",
+    "test": "make test && make coverage",
     "coverage": "make coverage",
     "build": "make dist"
   },
@@ -22,27 +22,28 @@
   "license": "ISC",
   "dependencies": {
     "btoa": "^1.1.2",
-    "jquery": "^2.1.1",
-    "jsdom": "^0.11.1",
+    "jquery": "^2.1.3",
+    "jsdom": "^2.0.0",
     "optimist": "^0.6.1",
     "xmldom": "^0.1.19"
   },
   "devDependencies": {
-    "browserify": "^4.2.3",
-    "browserify-istanbul": "^0.1.1",
-    "browserify-shim": "^3.6.0",
-    "chai": "^1.9.1",
-    "istanbul": "^0.3.0",
-    "karma": "^0.12.19",
-    "karma-browserify": "^0.2.1",
-    "karma-chrome-launcher": "^0.1.4",
-    "karma-coverage": "^0.2.5",
-    "karma-mocha": "^0.1.6",
+    "browserify": "^8.0.2",
+    "browserify-istanbul": "^0.1.2",
+    "browserify-shim": "^3.8.2",
+    "chai": "^1.10.0",
+    "istanbul": "^0.3.5",
+    "karma": "^0.12.30",
+    "karma-browserify": "^2.0.0",
+    "karma-coverage": "0.2.6",
+    "karma-coveralls": "^0.1.4",
+    "karma-mocha": "^0.1.10",
     "karma-node2umd": "^1.0.0",
+    "karma-phantomjs-launcher": "^0.1.4",
     "karma-requirejs": "^0.2.2",
-    "mocha": "^1.21.3",
-    "node2umd": "^1.0.1",
-    "requirejs": "^2.1.14",
+    "mocha": "^2.1.0",
+    "node2umd": "^1.0.2",
+    "requirejs": "^2.1.15",
     "serve": "^1.4.0"
   }
 }

@@ -33,11 +33,7 @@ var Main = module.exports = require('../core')({
     var styleSheet = style.sheet,
         cssRules = styleSheet.cssRules;
 
-    for (var iconName in rules.icons) {
-      styleSheet.insertRule(rules.icons[iconName], cssRules.length);
-    }
-
-    rules.family.forEach(function(rule) {
+    rules.forEach(function(rule) {
       styleSheet.insertRule(rule, cssRules.length);
     });
   }

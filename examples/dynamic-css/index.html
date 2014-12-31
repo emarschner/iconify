@@ -19,7 +19,7 @@
         var sheet = $('style.sprite-icon')[0].sheet,
             rules = sheet.cssRules;
 
-        Object.keys(iconify.__families__['sprite-icon'].__icons__).forEach(function(name) {
+        Object.keys(iconify.__families__['sprite-icon']).forEach(function(name) {
           sheet.insertRule('.' + name + '{background-color:rgb(' +
               ~~(Math.random() * 256) + ',' +
               ~~(Math.random() * 256) + ',' +

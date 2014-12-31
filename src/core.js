@@ -16,12 +16,12 @@ function Main(el) {
     foundFamily = className;
     return families[className];
   })) {
-    var familyIcons = families[foundFamily][iconsProp];
+    var familyIcons = families[foundFamily];
 
     if (classList.some(function(className) {
       return familyIcons[className];
     })) {
-      var iconData = $el.css('-webkit-mask-box-image-source'),
+      var iconData = $el.css('-webkit-mask-box-image'),
           decode = iconData.match(/;(.*),/)[1] === 'base64' ? atob : decodeURI,
           encodedSvg = iconData.match(/;.*,(.*)\)/)[1],
           $svg = $(decode(encodedSvg)).attr({ width: '100%', height: '100%' });
@@ -48,7 +48,9 @@ Main.load = function(svg, options) {
       encodeUriData = options.dataUriFormat === 'base64' ? btoa : encodeURI;
 
   function generateIconRule(el) {
-    var viewBox = (el.viewBox && el.viewBox.baseVal) || { width: 8, height: 8 },
+    var viewBoxValue = $(el).attr('viewBox'),
+        viewBox = (viewBoxValue && viewBoxValue.split(/\s+/g)) || [0, 0, 8, 8],
+        dimensions = { width: viewBox[2], height: viewBox[3] },
         content = '';
 
     if (el.firstChild != null) {
@@ -63,12 +65,12 @@ Main.load = function(svg, options) {
     }
 
     return ruleSelectorPrefix + '.' + $(el).attr('id') +
-        '{-webkit-mask-box-image-source:url(data:image/svg+xml;' + dataUriFormat + ',' +
+        '{-webkit-mask-box-image:url(data:image/svg+xml;' + dataUriFormat + ',' +
         encodeUriData(xmlToString($('<svg>').attr({
           xmlns: 'http://www.w3.org/2000/svg',
-          width: viewBox.width,
-          height: viewBox.height,
-          viewBox: [0, 0, viewBox.width, viewBox.height].join(' ')
+          width: dimensions.width,
+          height: dimensions.height,
+          viewBox: [0, 0, dimensions.width, dimensions.height].join(' ')
         }).html(content)[0])) + ');}';
   }
 
@@ -123,32 +125,32 @@ Main.load = function(svg, options) {
       return ruleString + '}';
     }
 
-    writeRules({
-      family: [
+    var families = Main[familiesProp],
+        familyIcons = families[options.family] = families[options.family] || [],
+        rules = (Object.keys(familyIcons).length === 0 ? [
 
-        // Main family rule
-        ruleFromObject(ruleSelectorPrefix, $.extend({ 'display': 'inline-block' }, options.css)),
+          // Main family rule
+          ruleFromObject(ruleSelectorPrefix, $.extend({ 'display': 'inline-block' }, options.css)),
 
-        // Rule for inlined icons from family
-        ruleFromObject('.inline' + ruleSelectorPrefix, {
-          'background-color': 'transparent',
-          '-webkit-mask-box-image-source': 'none'
-        }),
+          // Rule for inlined icons from family
+          ruleFromObject('.inline' + ruleSelectorPrefix, {
+            'background-color': 'transparent',
+            '-webkit-mask-box-image': 'none !important'
+          }),
 
-        // Rule for inlined SVG element from family
-        ruleFromObject('.inline' + ruleSelectorPrefix + ' svg', { 'display': 'block' })
-      ],
-      icons: $icons.toArray().reduce(function(icons, el) {
-        icons[$(el).attr('id')] = generateIconRule(el);
-        return icons;
-      }, (Main[familiesProp][options.family] = {})[iconsProp] = {})
-    }, options);
+          // Rule for inlined SVG element from family
+          ruleFromObject('.inline' + ruleSelectorPrefix + ' svg', { 'display': 'block' })
+        ] : []).concat($icons.toArray().map(function(el) {
+          return familyIcons[$(el).attr('id')] = generateIconRule(el);
+        }));
+
+    writeRules(rules, options);
 
     finish.resolve();
   });
 
   return finish;
-}
+};
 
 Main.load.defaultOptions = {
   dataUriFormat: 'base64',
@@ -159,8 +161,7 @@ Main.load.defaultOptions = {
   output: null
 };
 
-var familiesProp = '__families__',
-    iconsProp = '__icons__';
+var familiesProp = '__families__';
 
 Main[familiesProp] = {};
 
@@ -220,5 +221,5 @@ module.exports = function(deps) {
   fetchSvg = deps.fetchSvg;
   writeRules = deps.writeRules;
 
-  return Main;
+  return $.extend(Main, deps);
 };

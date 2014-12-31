@@ -1,10 +1,17 @@
+[![Build Status](https://travis-ci.org/emarschner/iconify.svg?branch=master)](https://travis-ci.org/emarschner/iconify)
+[![Coverage Status](https://img.shields.io/coveralls/emarschner/iconify.svg)](https://coveralls.io/r/emarschner/iconify)
+[![Code Climate](https://codeclimate.com/github/emarschner/iconify/badges/gpa.svg)](https://codeclimate.com/github/emarschner/iconify)
+[![Dependency Status](https://david-dm.org/emarschner/iconify.svg)](https://david-dm.org/emarschner/iconify)
+[![devDependency Status](https://david-dm.org/emarschner/iconify/dev-status.svg)](https://david-dm.org/emarschner/iconify#info=devDependencies)
+[![NPM version](https://badge.fury.io/js/iconify.svg)](http://badge.fury.io/js/iconify)
+
 `iconify` lets you use SVG images as icons on the web with pure CSS and/or DOM injection.
 
 It runs on both the server/command-line and in the browser. On the server it helps you generate static CSS files. In the browser it helps you dynamically generate CSS rules from SVG images for monochromatic icons, as well as inject SVG content into the DOM for richer customization (multiple colors, animations, etc.).
 
 # How it works
 
-`iconify` will take an SVG file like this one (for the "thumb-up" icon from [open-iconic](https://useiconic.com/open/)):
+`iconify` takes an SVG file like this one (for the "thumb-up" icon from [open-iconic](https://useiconic.com/open/)):
 
 ```xml
 <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8">
@@ -14,27 +21,27 @@ It runs on both the server/command-line and in the browser. On the server it hel
 
 which looks like:
 
-<img src="http://emarschner.github.io/iconify/img/thumb-up-black.png" />
+![black thumb-up icon](http://emarschner.github.io/iconify/img/thumb-up-black.png)
 
-and create CSS rules like these:
+and creates CSS rules like these:
 
 ```css
-.icon.thumb-up {
-  -webkit-mask-box-image-source: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHZpZXdib3g9IjAgMCA4IDgiPjxwYXRoIGQ9Im00LjQ3IDBjLS4xOS4wMi0uMzcuMTUtLjQ3LjM0LS4xMy4yNi0xLjA5IDIuMTktMS4yOCAyLjM4LS4xOS4xOS0uNDQuMjgtLjcyLjI4djRoMy41Yy4yMSAwIC4zOS0uMTMuNDctLjMxIDAgMCAxLjAzLTIuOTEgMS4wMy0zLjE5IDAtLjI4LS4yMi0uNS0uNS0uNWgtMS41Yy0uMjggMC0uNS0uMjUtLjUtLjVzLjM5LTEuNTguNDctMS44NGMuMDgtLjI2LS4wNS0uNTQtLjMxLS42My0uMDctLjAyLS4xMi0uMDQtLjE5LS4wM3ptLTQuNDcgM3Y0aDF2LTRoLTF6Ii8+PC9zdmc+);
-}
 .icon {
   display: inline-block;
 }
 .inline.icon {
   background-color: transparent;
-  -webkit-mask-box-image-source: none;
+  -webkit-mask-box-image: none !important;
 }
 .inline.icon svg {
   display: block;
 }
+.icon.thumb-up {
+  -webkit-mask-box-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHZpZXdib3g9IjAgMCA4IDgiPjxwYXRoIGQ9Im00LjQ3IDBjLS4xOS4wMi0uMzcuMTUtLjQ3LjM0LS4xMy4yNi0xLjA5IDIuMTktMS4yOCAyLjM4LS4xOS4xOS0uNDQuMjgtLjcyLjI4djRoMy41Yy4yMSAwIC4zOS0uMTMuNDctLjMxIDAgMCAxLjAzLTIuOTEgMS4wMy0zLjE5IDAtLjI4LS4yMi0uNS0uNS0uNWgtMS41Yy0uMjggMC0uNS0uMjUtLjUtLjVzLjM5LTEuNTguNDctMS44NGMuMDgtLjI2LS4wNS0uNTQtLjMxLS42My0uMDctLjAyLS4xMi0uMDQtLjE5LS4wM3ptLTQuNDcgM3Y0aDF2LTRoLTF6Ii8+PC9zdmc+);
+}
 ```
 
-The first rule there for `.icon.thumb-up` is the really important one. Its `-webkit-mask-box-image-source` property value is a base64-encoded data URI that represents the contents of the original SVG image.
+The last rule there for `.icon.thumb-up` is the really important one. Its `-webkit-mask-box-image` property value is a base64-encoded data URI that represents the contents of the original SVG image.
 
 ## Monochromatic icons
 
@@ -56,7 +63,7 @@ and you add this to your page's CSS:
 
 then you will get this:
 
-<img src="http://emarschner.github.io/iconify/img/thumb-up-hotpink.png" />
+![hotpink thumb-up icon](http://emarschner.github.io/iconify/img/thumb-up-hotpink.png)
 
 ## Fancier icons via inline SVG injection
 
@@ -97,7 +104,7 @@ You can then manipulate the inlined SVG content as you wish. For example, change
 }
 ```
 
-<img src="http://emarschner.github.io/iconify/img/thumb-up-outline.png" />
+![outline thumb-up icon](http://emarschner.github.io/iconify/img/thumb-up-outline.png)
 
 # Installation
 
@@ -181,6 +188,43 @@ Returns a [`jQuery.Deferred`](http://api.jquery.com/category/deferred-object/) "
 ```
 
 See source for more details...
+
+## CLI
+
+### `iconify [--options] <file> [<file 2> ... <file N>]`
+
+Outputs CSS rules to stdout for icons from `<file> [<file 2> ... <file N>]` as if those files were given to `iconify.load()`.
+
+* **_[--options]_** can be specified to customize a particular command's behavior. All of the `options` that can be provided to `iconify.load()` can be specified this way, with their names dash-ed rather than camelCased  -- e.g. `--data-uri-format base64` would be equivalent to `{ dataUriFormat: 'base64' }`
+* **_`<file> [<file 2> ... <file N>]`_**: at least one path to an input file (`<file>`) is required, which will be converted into CSS rules for the icon(s) defined therein. If a file contains a single icon then the file's name, minus the extension, will be the default name for that icon, unless one is already given via the `--name` option.
+
+### Transforms
+
+An additional `--transform <transformer>[,<transformer 2>,...,<transformer N>]` option is available to allow arbitrary customization of how file contents are processed, and with which options. The `<transformer>`s given will be resolved and loaded as NodeJS modules defining appropriate transformer functions.
+
+A transformer function is any function accepting two arguments, i.e. `function(input, output) { ... }`, where `input` is a [readable stream](http://nodejs.org/api/stream.html#stream_class_stream_readable) and `output` is a [writable stream](http://nodejs.org/api/stream.html#stream_class_stream_writable), both in [object mode](http://nodejs.org/api/stream.html#stream_object_mode). Objects read from or written to these streams should contain `source` and `options` properties, which will ultimately be used as the first and second arguments to `iconify.load()`, respectively.
+
+For example, here's a contrived transformer function that will set the icon family to `magicon`:
+
+```javascript
+// set-family.js
+module.exports = function(input, output) {
+  input.on('data', function(item) {
+    item.options.family = 'magicon';
+    output.write(item);
+  });
+};
+```
+
+which could be used like so:
+
+```
+iconify --transform ./set-family my-icons.svg
+```
+
+(Of course in this case you could also just use the global `--family` option: `iconify --family magicon my-icons.svg`.)
+
+When multiple comma-separated paths are given to the `--transform` option then the corresponding transformer functions are chained together, with the `input` of one being the `output` from the one before it.
 
 # Credits
 
