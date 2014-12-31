@@ -1,8 +1,8 @@
-!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.iconify=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
+!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.iconify=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
 var $ = (typeof window !== "undefined" ? window.$ : typeof global !== "undefined" ? global.$ : null);
 
-var Main = module.exports = _dereq_('../core')({
+var Main = module.exports = require('../core')({
   $: $,
   DOMParser: DOMParser,
   XMLSerializer: XMLSerializer,
@@ -35,18 +35,14 @@ var Main = module.exports = _dereq_('../core')({
     var styleSheet = style.sheet,
         cssRules = styleSheet.cssRules;
 
-    for (var iconName in rules.icons) {
-      styleSheet.insertRule(rules.icons[iconName], cssRules.length);
-    }
-
-    rules.family.forEach(function(rule) {
+    rules.forEach(function(rule) {
       styleSheet.insertRule(rule, cssRules.length);
     });
   }
 });
 
-}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../core":2}],2:[function(_dereq_,module,exports){
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"../core":2}],2:[function(require,module,exports){
 // Module dependencies that must be defined (aka "injected") when used:
 var $, DOMParser, XMLSerializer, btoa, fetchSvg, writeRules;
 
@@ -65,12 +61,12 @@ function Main(el) {
     foundFamily = className;
     return families[className];
   })) {
-    var familyIcons = families[foundFamily][iconsProp];
+    var familyIcons = families[foundFamily];
 
     if (classList.some(function(className) {
       return familyIcons[className];
     })) {
-      var iconData = $el.css('-webkit-mask-box-image-source'),
+      var iconData = $el.css('-webkit-mask-box-image'),
           decode = iconData.match(/;(.*),/)[1] === 'base64' ? atob : decodeURI,
           encodedSvg = iconData.match(/;.*,(.*)\)/)[1],
           $svg = $(decode(encodedSvg)).attr({ width: '100%', height: '100%' });
@@ -97,7 +93,9 @@ Main.load = function(svg, options) {
       encodeUriData = options.dataUriFormat === 'base64' ? btoa : encodeURI;
 
   function generateIconRule(el) {
-    var viewBox = (el.viewBox && el.viewBox.baseVal) || { width: 8, height: 8 },
+    var viewBoxValue = $(el).attr('viewBox'),
+        viewBox = (viewBoxValue && viewBoxValue.split(/\s+/g)) || [0, 0, 8, 8],
+        dimensions = { width: viewBox[2], height: viewBox[3] },
         content = '';
 
     if (el.firstChild != null) {
@@ -112,12 +110,12 @@ Main.load = function(svg, options) {
     }
 
     return ruleSelectorPrefix + '.' + $(el).attr('id') +
-        '{-webkit-mask-box-image-source:url(data:image/svg+xml;' + dataUriFormat + ',' +
+        '{-webkit-mask-box-image:url(data:image/svg+xml;' + dataUriFormat + ',' +
         encodeUriData(xmlToString($('<svg>').attr({
           xmlns: 'http://www.w3.org/2000/svg',
-          width: viewBox.width,
-          height: viewBox.height,
-          viewBox: [0, 0, viewBox.width, viewBox.height].join(' ')
+          width: dimensions.width,
+          height: dimensions.height,
+          viewBox: [0, 0, dimensions.width, dimensions.height].join(' ')
         }).html(content)[0])) + ');}';
   }
 
@@ -172,32 +170,32 @@ Main.load = function(svg, options) {
       return ruleString + '}';
     }
 
-    writeRules({
-      family: [
+    var families = Main[familiesProp],
+        familyIcons = families[options.family] = families[options.family] || [],
+        rules = (Object.keys(familyIcons).length === 0 ? [
 
-        // Main family rule
-        ruleFromObject(ruleSelectorPrefix, $.extend({ 'display': 'inline-block' }, options.css)),
+          // Main family rule
+          ruleFromObject(ruleSelectorPrefix, $.extend({ 'display': 'inline-block' }, options.css)),
 
-        // Rule for inlined icons from family
-        ruleFromObject('.inline' + ruleSelectorPrefix, {
-          'background-color': 'transparent',
-          '-webkit-mask-box-image-source': 'none'
-        }),
+          // Rule for inlined icons from family
+          ruleFromObject('.inline' + ruleSelectorPrefix, {
+            'background-color': 'transparent',
+            '-webkit-mask-box-image': 'none !important'
+          }),
 
-        // Rule for inlined SVG element from family
-        ruleFromObject('.inline' + ruleSelectorPrefix + ' svg', { 'display': 'block' })
-      ],
-      icons: $icons.toArray().reduce(function(icons, el) {
-        icons[$(el).attr('id')] = generateIconRule(el);
-        return icons;
-      }, (Main[familiesProp][options.family] = {})[iconsProp] = {})
-    }, options);
+          // Rule for inlined SVG element from family
+          ruleFromObject('.inline' + ruleSelectorPrefix + ' svg', { 'display': 'block' })
+        ] : []).concat($icons.toArray().map(function(el) {
+          return familyIcons[$(el).attr('id')] = generateIconRule(el);
+        }));
+
+    writeRules(rules, options);
 
     finish.resolve();
   });
 
   return finish;
-}
+};
 
 Main.load.defaultOptions = {
   dataUriFormat: 'base64',
@@ -208,8 +206,7 @@ Main.load.defaultOptions = {
   output: null
 };
 
-var familiesProp = '__families__',
-    iconsProp = '__icons__';
+var familiesProp = '__families__';
 
 Main[familiesProp] = {};
 
@@ -269,9 +266,8 @@ module.exports = function(deps) {
   fetchSvg = deps.fetchSvg;
   writeRules = deps.writeRules;
 
-  return Main;
+  return $.extend(Main, deps);
 };
 
-},{}]},{},[1])
-(1)
+},{}]},{},[1])(1)
 });
