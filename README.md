@@ -1,9 +1,9 @@
-[![Build Status](https://travis-ci.org/emarschner/iconify.svg?branch=master)](https://travis-ci.org/emarschner/iconify)
-[![Coverage Status](https://img.shields.io/coveralls/emarschner/iconify.svg)](https://coveralls.io/r/emarschner/iconify)
-[![Code Climate](https://codeclimate.com/github/emarschner/iconify/badges/gpa.svg)](https://codeclimate.com/github/emarschner/iconify)
-[![Dependency Status](https://david-dm.org/emarschner/iconify.svg)](https://david-dm.org/emarschner/iconify)
-[![devDependency Status](https://david-dm.org/emarschner/iconify/dev-status.svg)](https://david-dm.org/emarschner/iconify#info=devDependencies)
-[![NPM version](https://badge.fury.io/js/iconify.svg)](http://badge.fury.io/js/iconify)
+[![NPM version](https://img.shields.io/npm/v/iconify.svg?style=flat)](https://www.npmjs.com/package/iconify)
+[![Build Status](https://img.shields.io/travis/emarschner/iconify.svg?style=flat)](https://travis-ci.org/emarschner/iconify)
+[![Coverage Status](https://img.shields.io/coveralls/emarschner/iconify.svg?style=flat)](https://coveralls.io/r/emarschner/iconify)
+[![Code Climate](https://img.shields.io/codeclimate/github/emarschner/iconify.svg?style=flat)](https://codeclimate.com/github/emarschner/iconify)
+[![Dependency Status](https://img.shields.io/david/emarschner/iconify.svg?style=flat)](https://david-dm.org/emarschner/iconify)
+[![devDependency Status](https://img.shields.io/david/dev/emarschner/iconify.svg?style=flat)](https://david-dm.org/emarschner/iconify#info=devDependencies)
 
 `iconify` lets you use SVG images as icons on the web with pure CSS and/or DOM injection.
 

@@ -11,7 +11,7 @@ module.exports = {
   ],
   preprocessors: {
     'tests/*-test.js': 'browserify',
-    'tests/browser/*-test.js': 'browserify',
+    'tests/browser/*-test.js': 'browserify'
   },
   reporters: ['progress'],
   browsers: ['PhantomJS']

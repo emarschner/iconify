@@ -1,7 +1,7 @@
 // Module dependencies that must be defined (aka "injected") when used:
 var $, DOMParser, XMLSerializer, btoa, fetchSvg, writeRules;
 
-function Main(el) {
+function Main (el) {
   var $el = el instanceof $ ? el : $(el);
 
   if ($el.hasClass('inline')) {
@@ -12,13 +12,13 @@ function Main(el) {
       families = Main[familiesProp],
       foundFamily;
 
-  if (classList.some(function(className) {
+  if (classList.some(function (className) {
     foundFamily = className;
     return families[className];
   })) {
     var familyIcons = families[foundFamily];
 
-    if (classList.some(function(className) {
+    if (classList.some(function (className) {
       return familyIcons[className];
     })) {
       var iconData = $el.css('-webkit-mask-box-image'),
@@ -35,10 +35,10 @@ function Main(el) {
     }
   } else {
     throw new MainError('Cannot match element to any loaded family of icons', { el: $el[0] });
-  };
-};
+  }
+}
 
-Main.load = function(svg, options) {
+Main.load = function (svg, options) {
   options = $.extend({}, Main.load.defaultOptions, options);
 
   var svgLoad = $.Deferred(),
@@ -47,19 +47,19 @@ Main.load = function(svg, options) {
       dataUriFormat = options.dataUriFormat,
       encodeUriData = options.dataUriFormat === 'base64' ? btoa : encodeURI;
 
-  function generateIconRule(el) {
+  function generateIconRule (el) {
     var viewBoxValue = $(el).attr('viewBox'),
         viewBox = (viewBoxValue && viewBoxValue.split(/\s+/g)) || [0, 0, 8, 8],
         dimensions = { width: viewBox[2], height: viewBox[3] },
         content = '';
 
-    if (el.firstChild != null) {
+    if (el.firstChild !== null && el.firstChild !== undefined) {
       var childNode = el.firstChild;
 
       do {
         content += xmlToString(childNode);
         childNode = childNode.nextSibling;
-      } while (childNode != null);
+      } while (childNode !== null && childNode !== undefined);
     } else {
       content = xmlToString(el);
     }
@@ -78,13 +78,13 @@ Main.load = function(svg, options) {
     svgLoad.resolve(parseSvg(svg));
   } catch (e) {
     if (e instanceof ParseError) {
-      fetchSvg(svg, options).then(function(svgDoc) {
+      fetchSvg(svg, options).then(function (svgDoc) {
         try {
           svgLoad.resolve(typeof svgDoc === 'string' ? parseSvg(svgDoc) : svgDoc);
         } catch (e) {
           finish.reject(e);
         }
-      }).fail(function(fetchError) {
+      }).fail(function (fetchError) {
         finish.reject(new MainError('Could not load icons', {
           src: svg,
           errors: [e, fetchError]
@@ -95,11 +95,11 @@ Main.load = function(svg, options) {
     }
   }
 
-  svgLoad.then(function(svg) {
-    var $icons = $(svg).find('*').filter(function(index, el) {
+  svgLoad.then(function (svg) {
+    var $icons = $(svg).find('*').filter(function (index, el) {
       var $el = $(el);
 
-      return $el.attr('id') && $el.parents().toArray().some(function(parent) {
+      return $el.attr('id') && $el.parents().toArray().some(function (parent) {
         return !$(parent).attr('id');
       });
     });
@@ -115,7 +115,7 @@ Main.load = function(svg, options) {
       }));
     }
 
-    function ruleFromObject(selector, obj) {
+    function ruleFromObject (selector, obj) {
       var ruleString = selector + '{';
 
       for (var propName in obj) {
@@ -140,8 +140,10 @@ Main.load = function(svg, options) {
 
           // Rule for inlined SVG element from family
           ruleFromObject('.inline' + ruleSelectorPrefix + ' svg', { 'display': 'block' })
-        ] : []).concat($icons.toArray().map(function(el) {
-          return familyIcons[$(el).attr('id')] = generateIconRule(el);
+        ] : []).concat($icons.toArray().map(function (el) {
+          var rule = familyIcons[$(el).attr('id')] = generateIconRule(el);
+
+          return rule;
         }));
 
     writeRules(rules, options);
@@ -165,46 +167,46 @@ var familiesProp = '__families__';
 
 Main[familiesProp] = {};
 
-var MainError = Main.Error = function(message, details) {
+var MainError = Main.Error = function (message, details) {
   this.message = message;
   this.details = details;
 };
 
 MainError.prototype = new Error();
 
-var ParseError = function() {
+var ParseError = function () {
   MainError.apply(this, arguments);
-}
+};
 
 ParseError.prototype = new MainError();
 
 // Some Utilities:
 
-function parseSvg(svg) {
+function parseSvg (svg) {
   if (typeof svg !== 'string') {
     throw new TypeError('Failed to parse non-string target: ' + JSON.stringify(svg));
   }
 
   var doc = new DOMParser().parseFromString(svg, 'image/svg+xml').documentElement;
 
-  if (doc == null || doc.getElementsByTagName('parsererror').length !== 0) {
+  if (doc === null || doc === undefined || doc.getElementsByTagName('parsererror').length !== 0) {
     throw new ParseError('Invalid SVG and/or XML', { src: svg, result: doc });
   } else if (!/svg/i.test(doc.tagName)) {
     throw new MainError('Parsed XML is not SVG', { src: svg, result: doc });
   } else {
     return doc;
   }
-};
+}
 
-function xmlToString(node) {
+function xmlToString (node) {
   return new XMLSerializer().serializeToString(node);
 }
 
 // Don't export module itself, but rather the means to define (aka "inject") module dependencies:
-module.exports = function(deps) {
+module.exports = function (deps) {
   var unmetDeps = [];
 
-  ['$', 'DOMParser', 'XMLSerializer', 'btoa', 'fetchSvg', 'writeRules'].forEach(function(name) {
+  ['$', 'DOMParser', 'XMLSerializer', 'btoa', 'fetchSvg', 'writeRules'].forEach(function (name) {
     if ((deps || {})[name] === undefined) {
       unmetDeps.push(name);
     }
@@ -214,7 +216,7 @@ module.exports = function(deps) {
     throw new Error('Unmet dependency(-ies): ' + unmetDeps.join(', '), { deps: deps });
   }
 
-  $ = deps.$
+  $ = deps.$;
   DOMParser = deps.DOMParser;
   XMLSerializer = deps.XMLSerializer;
   btoa = deps.btoa;

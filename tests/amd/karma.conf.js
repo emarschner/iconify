@@ -1,4 +1,4 @@
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
     basePath: '../..',
     frameworks: ['mocha', 'requirejs'],
@@ -18,6 +18,6 @@ module.exports = function(config) {
       'tests/**/fixtures/**/*.js': 'node2umd'
     },
     reporters: ['progress'],
-    browsers: ['PhantomJS'],
+    browsers: ['PhantomJS']
   });
 };

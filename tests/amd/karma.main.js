@@ -1,11 +1,11 @@
 var allTestFiles = [];
 var TEST_REGEXP = /^\/base\/tests\/.*-test\.js$/i;
 
-var pathToModule = function(path) {
+var pathToModule = function (path) {
   return path.replace(/^\/base\//, '').replace(/\.js$/, '');
 };
 
-Object.keys(window.__karma__.files).forEach(function(file) {
+Object.keys(window.__karma__.files).forEach(function (file) {
   if (TEST_REGEXP.test(file)) {
     allTestFiles.push(pathToModule(file));
   }

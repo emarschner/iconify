@@ -5,20 +5,20 @@ if (typeof window !== 'undefined') {
   require('../src/browser/index');
 }
 
-describe('main package exports', function() {
+describe('main package exports', function () {
 
   // Choose whether to load module via node-based or browser-based index
   var index = require('../src/' + (typeof window === 'undefined' ? 'node' : 'browser') + '/index');
 
-  it('is a function', function() {
+  it('is a function', function () {
     assert.isFunction(index);
   });
 
-  it('has a load method', function() {
+  it('has a load method', function () {
     assert.isFunction(index.load);
   });
 
-  it('has a custom Error', function() {
-    assert.instanceOf(new index.Error, Error);
+  it('has a custom Error', function () {
+    assert.instanceOf(new index.Error(), Error);
   });
 });
