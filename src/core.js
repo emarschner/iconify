@@ -48,17 +48,17 @@ Main.load = function (svg, options) {
       encodeUriData = options.dataUriFormat === 'base64' ? btoa : encodeURI;
 
   function generateIconRule (el) {
-    var viewBoxValue = $(el).attr('viewBox'),
+    var viewBoxValue = el.getAttribute('viewBox'),
         viewBox = (viewBoxValue && viewBoxValue.split(/\s+/g)) || [0, 0, 8, 8],
         dimensions = { width: viewBox[2], height: viewBox[3] },
         content = '';
 
-    if (el.firstChild !== null && el.firstChild !== undefined) {
-      var childNode = el.firstChild;
+    if (el.firstElementChild !== null && el.firstElementChild !== undefined) {
+      var childNode = el.firstElementChild;
 
       do {
         content += xmlToString(childNode);
-        childNode = childNode.nextSibling;
+        childNode = childNode.nextElementSibling;
       } while (childNode !== null && childNode !== undefined);
     } else {
       content = xmlToString(el);

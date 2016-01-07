@@ -110,6 +110,8 @@ You can then manipulate the inlined SVG content as you wish. For example, change
 
 `npm install iconify [-g]`
 
+**Note** - as of `iconify@1.0.0`, NodeJS version `4.x` or newer is required due to `jsdom@>=7.0.0`'s requirement as such ([read why here](https://github.com/tmpvar/jsdom/blob/master/Changelog.md#700)). `iconify@0` maintains compatibility with NodeJS versions as early as `0.10.x`, but should be considered deprecated.
+
 # Usage
 
 ## Command-line

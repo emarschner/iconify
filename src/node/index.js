@@ -1,19 +1,17 @@
-var $ = require('jquery')(require('jsdom').jsdom().parentWindow),
-    fs = require('fs'),
-    xmldom = require('xmldom');
+var jsdom = require('jsdom'),
+    $ = require('jquery')(jsdom.jsdom().defaultView),
+    fs = require('fs');
 
 module.exports = require('../core')({
   $: $,
-  DOMParser: xmldom.DOMParser,
+  DOMParser: function () {
+    this.parseFromString = function (markup) {
+      return { documentElement: jsdom.jsdom(markup).querySelector('svg') };
+    };
+  },
   XMLSerializer: function () {
     this.serializeToString = function (node) {
-      return new xmldom.XMLSerializer().serializeToString(node)
-
-          // Hack to work around xmldom.XMLSerializer's use of node.tagName, which is always upper-
-          // cased, which browsers don't seem to like when embedding SVGs as data URIs in CSS
-          .replace(/<([^\/\s]+|\/[^>]+)/g, function (xml, tagName) {
-            return '<' + tagName.toLowerCase();
-          });
+      return node.outerHTML;
     };
   },
   btoa: require('btoa'),
