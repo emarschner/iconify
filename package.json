@@ -1,6 +1,6 @@
 {
   "name": "iconify",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Utility for using SVG images as icons on the web with pure CSS and/or DOM injection",
   "engines": {
     "node": "0.10 || 0.12 || 4 || 5"
