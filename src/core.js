@@ -1,6 +1,8 @@
 // Module dependencies that must be defined (aka "injected") when used:
 var $, DOMParser, XMLSerializer, btoa, fetchSvg, writeRules;
 
+var hash = require('js-sha256');
+
 function Main (el) {
   var $el = el instanceof $ ? el : $(el);
 
@@ -8,33 +10,25 @@ function Main (el) {
     return $el;
   }
 
-  var classList = $el.attr('class').split(/\s+/),
-      families = Main[familiesProp],
-      foundFamily;
+  var iconData = $el.css('-webkit-mask-box-image');
 
-  if (classList.some(function (className) {
-    foundFamily = className;
-    return families[className];
-  })) {
-    var familyIcons = families[foundFamily];
+  if (iconData !== 'none') {
+    var iconHash = hash(iconData),
+        svgElement;
 
-    if (classList.some(function (className) {
-      return familyIcons[className];
-    })) {
-      var iconData = $el.css('-webkit-mask-box-image'),
-          decode = iconData.match(/;(.*),/)[1] === 'base64' ? atob : decodeURI,
-          encodedSvg = iconData.match(/;.*,(.*)\)/)[1],
-          $svg = $(decode(encodedSvg)).attr({ width: '100%', height: '100%' });
+    if ((svgElement = Main.__inlineCache__[iconHash]) === undefined) {
+      var decode = iconData.match(/;(.*),/)[1] === 'base64' ? atob : decodeURI,
+          encodedSvg = iconData.match(/;.*,([^")]*)/)[1];
 
-      return $el.addClass('inline').append($svg);
-    } else {
-      throw new MainError('Cannot match element to icon from family: ' + foundFamily, {
-        family: foundFamily,
-        el: $el[0]
-      });
+      Main.__inlineCache__[iconHash] = svgElement = $(decode(encodedSvg)).attr({
+        width: '100%',
+        height: '100%'
+      })[0];
     }
+
+    return $el.addClass('inline').append(svgElement.cloneNode(true));
   } else {
-    throw new MainError('Cannot match element to any loaded family of icons', { el: $el[0] });
+    throw new MainError('Missing icon data', { el: $el[0] });
   }
 }
 
@@ -166,6 +160,7 @@ Main.load.defaultOptions = {
 var familiesProp = '__families__';
 
 Main[familiesProp] = {};
+Main.__inlineCache__ = {};
 
 var MainError = Main.Error = function (message, details) {
   this.message = message;

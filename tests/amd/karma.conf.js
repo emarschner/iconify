@@ -6,6 +6,7 @@ module.exports = function (config) {
       'tests/amd/karma.main.js',
       { pattern: 'node_modules/chai/chai.js', included: false },
       { pattern: 'node_modules/jquery/dist/jquery.js', included: false },
+      { pattern: 'node_modules/js-sha256/src/sha256.js', included: false },
       { pattern: 'src/**/*.js', included: false },
       { pattern: 'tests/*-test.js', included: false },
       { pattern: 'tests/browser/*-test.js', included: false },

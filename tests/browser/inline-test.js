@@ -53,6 +53,15 @@ describe('inlining icons', function () {
           });
 
           expectElementReturned();
+
+          describe('w/out the family class', function () {
+            beforeEach(function () {
+              $(iconElement).removeClass('icon');
+              $inlined = index(iconElement);
+            });
+
+            expectElementReturned();
+          });
         });
 
         describe('from a jQuery-wrapped element', function () {
@@ -90,7 +99,7 @@ describe('inlining icons', function () {
         });
 
         it('throws an appropriate error', function () {
-          assert.deepEqual(error.details, { family: 'icon', el: iconElement });
+          assert.deepEqual(error.details, { el: iconElement });
         });
       });
 

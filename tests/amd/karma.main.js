@@ -15,7 +15,8 @@ require.config({
   baseUrl: '/base',
   paths: {
     chai: 'node_modules/chai/chai',
-    jquery: 'node_modules/jquery/dist/jquery'
+    jquery: 'node_modules/jquery/dist/jquery',
+    'js-sha256': 'node_modules/js-sha256/src/sha256'
   },
   deps: allTestFiles,
   callback: window.__karma__.start

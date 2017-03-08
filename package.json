@@ -1,9 +1,9 @@
 {
   "name": "iconify",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Utility for using SVG images as icons on the web with pure CSS and/or DOM injection",
   "engines": {
-    "node": "4 || 5"
+    "node": ">=4"
   },
   "main": "src/node/index.js",
   "browser": "src/browser/index.js",
@@ -37,6 +37,7 @@
     "chai": "^3.4.1",
     "eslint": "^1.10.3",
     "istanbul": "^0.4.1",
+    "js-sha256": "^0.5.0",
     "karma": "^0.13.19",
     "karma-browserify": "^4.4.2",
     "karma-coverage": "^0.5.3",
