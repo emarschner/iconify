@@ -10,7 +10,7 @@ function Main (el) {
     return $el;
   }
 
-  var iconData = $el.css('-webkit-mask-box-image');
+  var iconData = $el.css('-webkit-mask-box-image') || $el.css('mask-image');
 
   if (iconData !== 'none') {
     var iconHash = hash(iconData),
@@ -58,14 +58,20 @@ Main.load = function (svg, options) {
       content = xmlToString(el);
     }
 
+    var url = 'url(data:image/svg+xml;' + dataUriFormat + ',' +
+      encodeUriData(xmlToString($('<svg>').attr({
+        xmlns: 'http://www.w3.org/2000/svg',
+        width: dimensions.width,
+        height: dimensions.height,
+        viewBox: [0, 0, dimensions.width, dimensions.height].join(' ')
+      }).html(content)[0])) + ')';
+
     return ruleSelectorPrefix + '.' + $(el).attr('id') +
-        '{-webkit-mask-box-image:url(data:image/svg+xml;' + dataUriFormat + ',' +
-        encodeUriData(xmlToString($('<svg>').attr({
-          xmlns: 'http://www.w3.org/2000/svg',
-          width: dimensions.width,
-          height: dimensions.height,
-          viewBox: [0, 0, dimensions.width, dimensions.height].join(' ')
-        }).html(content)[0])) + ');}';
+      '{' +
+        '-webkit-mask-box-image:' + url + ';' +
+        'mask-image:' + url + ';' +
+        'mask-size:contain;' +
+      '}';
   }
 
   try {
@@ -129,7 +135,8 @@ Main.load = function (svg, options) {
           // Rule for inlined icons from family
           ruleFromObject('.inline' + ruleSelectorPrefix, {
             'background-color': 'transparent',
-            '-webkit-mask-box-image': 'none !important'
+            '-webkit-mask-box-image': 'none !important',
+            'mask-image': 'none !important'
           }),
 
           // Rule for inlined SVG element from family
