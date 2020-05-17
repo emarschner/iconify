@@ -1,3 +1,5 @@
+process.env.CHROME_BIN = require('puppeteer').executablePath();
+
 module.exports = {
   basePath: '../..',
   frameworks: ['mocha', 'browserify'],
@@ -13,6 +15,6 @@ module.exports = {
     'tests/*-test.js': 'browserify',
     'tests/browser/*-test.js': 'browserify'
   },
-  reporters: ['progress'],
-  browsers: ['PhantomJS']
+  reporters: ['mocha'],
+  browsers: ['ChromeHeadless']
 };

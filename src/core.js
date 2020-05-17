@@ -59,8 +59,7 @@ Main.load = function (svg, options) {
     }
 
     var url = 'url(data:image/svg+xml;' + dataUriFormat + ',' +
-      encodeUriData(xmlToString($('<svg>').attr({
-        xmlns: 'http://www.w3.org/2000/svg',
+      encodeUriData(xmlToString($('<svg xmlns="http://www.w3.org/2000/svg">').attr({
         width: dimensions.width,
         height: dimensions.height,
         viewBox: [0, 0, dimensions.width, dimensions.height].join(' ')

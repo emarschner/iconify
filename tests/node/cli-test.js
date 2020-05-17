@@ -19,12 +19,12 @@ describe('CLI', function () {
       var items = context.items = [];
 
       sinkTransform.input
-          .on('end', function () {
-            done();
-          })
-          .on('data', function (item) {
-            items.push(item);
-          });
+        .on('end', function () {
+          done();
+        })
+        .on('data', function (item) {
+          items.push(item);
+        });
 
       action();
     });
