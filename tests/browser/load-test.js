@@ -22,11 +22,7 @@ describe('loading icons', function () {
           sheetCSS += rules[i].cssText;
         }
 
-        try {
-          assert.equal(sheetCSS, allStrings[sourceName].css[encoding]);
-        } catch (e) {
-          throw e;
-        }
+        assert.equal(sheetCSS, allStrings[sourceName].css[encoding]);
       });
     }
 

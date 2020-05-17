@@ -1,3 +1,5 @@
+process.env.CHROME_BIN = require('puppeteer').executablePath();
+
 module.exports = function (config) {
   config.set({
     basePath: '../..',
@@ -18,7 +20,7 @@ module.exports = function (config) {
       'tests/browser/*-test.js': 'node2umd',
       'tests/**/fixtures/**/*.js': 'node2umd'
     },
-    reporters: ['progress'],
-    browsers: ['PhantomJS']
+    reporters: ['mocha'],
+    browsers: ['ChromeHeadless']
   });
 };
