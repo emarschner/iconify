@@ -50,6 +50,6 @@
     "node2umd": "^1.0.2",
     "phantomjs": "^1.9.19",
     "requirejs": "^2.1.16",
-    "serve": "^1.4.0"
+    "serve": "^11.3.0"
   }
 }
