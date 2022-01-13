@@ -1,12 +1,12 @@
 var jsdom = require('jsdom'),
-    $ = require('jquery')(jsdom.jsdom().defaultView),
+    $ = require('jquery')((new jsdom.JSDOM('')).window.document.defaultView),
     fs = require('fs');
 
 module.exports = require('../core')({
   $: $,
   DOMParser: function () {
     this.parseFromString = function (markup) {
-      return { documentElement: jsdom.jsdom(markup).querySelector('svg') };
+      return { documentElement: (new jsdom.JSDOM(markup)).window.document.querySelector('svg') };
     };
   },
   XMLSerializer: function () {
